@@ -4,7 +4,9 @@
   "description": "Web based calculator",
   "main": "index.js",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "sass": "gulp sass",
+    "sass-watch": "gulp sass:watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0"
+    "gulp-babel": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^4.14.1"
   }
 }
