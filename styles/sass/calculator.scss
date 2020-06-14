@@ -3,33 +3,51 @@ $calcBGColor: #333;
 $calcBtnColor: #e77676;
 $actionBtnColor: #ff4646;
 $operatorBtnColor: #f8b155;
-$calcFontColor: #FFF;
 $calcBtnSize: 4rem;
-$calcScreenHeight: 4rem;
+$calcFontSize: $calcBtnSize/3;
+$calcFontColor: #FFF;
+$calcScreenHeight: 6rem;
 
 // Rules
 .calculator {
     background-color: $calcBGColor;
+    color: $calcFontColor;
 
     .calc-screen {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        justify-content: space-around;
+        justify-content: center;
         height: $calcScreenHeight;
 
-        padding: 1rem;
+        padding: 2rem;
+
+        // sum and answer displays
+        p {
+            font-size: $calcFontSize;
+            margin: 0;
+
+            &.sum-value {
+                color: #727272;
+            }
+            &.answer-value {
+                font-size: $calcFontSize*2;
+            }
+        }
     }
 
     .btn-row {
         display:flex;
         justify-content: space-evenly;
+        border-top: 1px solid $calcBGColor;
     }
 
     .calc-buttons {
         button, .btn-spacer {
             border: 0;
             background-color: $calcBtnColor;
+            color: $calcFontColor;
+            font-size: $calcFontSize;
             
             min-width: $calcBtnSize;
             min-height: $calcBtnSize;
