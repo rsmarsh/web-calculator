@@ -1,0 +1,25 @@
+// Variables
+$calcBGColor: #333;
+$calcBtnColor: #e77676;
+$actionBtnColor: #ff4646;
+$operatorBtnColor: #f8b155;
+
+$calcFontColor: #FFF;
+
+// Rules
+.calculator {
+    background-color: $calcBGColor;
+
+    .calc-buttons {
+        button {
+            background-color: $calcBtnColor;
+        }
+
+        .action {
+            background-color: $actionBtnColor;
+        }
+        .operator {
+            background-color: $operatorBtnColor;
+        }
+    }
+}

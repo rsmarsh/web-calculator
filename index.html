@@ -6,43 +6,45 @@
 
         <script src="/src/calculator.js" defer></script>
         <script src="/src/index.js" defer></script>
+
+        <link rel="stylesheet" href="./styles/css/main.css">
     </head>
     <body>
         <div id="content">
 
-            <div class="calc-container">
+            <div class="calculator">
                 <div class="calc-screen">
                     <div class="sum">sum</div>
                     <div class="answer">answer</div>
                 </div>
                 <div class="calc-buttons">
                     <div>
-                        <button value="clear" data-btn-type="action">AC</button>
-                        <button value="save" data-btn-type="action">SAVE</button>
-                        <button value="divide" data-btn-type="operator">&divide;</button>
+                        <button value="clear" class="action" data-btn-type="action">AC</button>
+                        <button value="save" class="action" data-btn-type="action">SAVE</button>
+                        <button value="divide" class="operator" data-btn-type="operator">&divide;</button>
                     </div>
                     <div>
                         <button value="decimal" data-btn-type="number">.</button>
                         <button value="0" data-btn-type="number">0</button>
-                        <button value="multiply" data-btn-type="operator">&times;</button>
+                        <button value="multiply" class="operator" data-btn-type="operator">&times;</button>
                     </div>
                     <div>
                         <button value="1" data-btn-type="number">1</button>
                         <button value="2" data-btn-type="number">2</button>
                         <button value="3" data-btn-type="number">3</button>
-                        <button value="subtract" data-btn-type="operator">&minus;</button>
+                        <button value="subtract" class="operator"data-btn-type="operator">&minus;</button>
                     </div>
                     <div>
                         <button value="4" data-btn-type="number">4</button>
                         <button value="5" data-btn-type="number">5</button>
                         <button value="6" data-btn-type="number">6</button>
-                        <button value="add" data-btn-type="operator">&plus;</button>
+                        <button value="add" class="operator" data-btn-type="operator">&plus;</button>
                     </div>
                     <div>
                         <button value="7" data-btn-type="number">7</button>
                         <button value="8" data-btn-type="number">8</button>
                         <button value="9" data-btn-type="number">9</button>
-                        <button value="equals" data-btn-type="equals">=</button>
+                        <button value="equals" class="operator" data-btn-type="equals">=</button>
                     </div>
                 </div>
 
