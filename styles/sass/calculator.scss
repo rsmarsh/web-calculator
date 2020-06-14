@@ -3,16 +3,43 @@ $calcBGColor: #333;
 $calcBtnColor: #e77676;
 $actionBtnColor: #ff4646;
 $operatorBtnColor: #f8b155;
-
 $calcFontColor: #FFF;
+$calcBtnSize: 4rem;
+$calcScreenHeight: 4rem;
 
 // Rules
 .calculator {
     background-color: $calcBGColor;
 
+    .calc-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-around;
+        height: $calcScreenHeight;
+
+        padding: 1rem;
+    }
+
+    .btn-row {
+        display:flex;
+        justify-content: space-evenly;
+    }
+
     .calc-buttons {
-        button {
+        button, .btn-spacer {
+            border: 0;
             background-color: $calcBtnColor;
+            
+            min-width: $calcBtnSize;
+            min-height: $calcBtnSize;
+            
+            &.wide-btn {
+                min-width: $calcBtnSize*2;
+            }
+        }
+        button {
+            cursor: pointer;
         }
 
         .action {
@@ -21,5 +48,6 @@ $calcFontColor: #FFF;
         .operator {
             background-color: $operatorBtnColor;
         }
+        
     }
 }
