@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp build",
     "sass": "gulp sass",
-    "sass-watch": "gulp sass:watch"
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

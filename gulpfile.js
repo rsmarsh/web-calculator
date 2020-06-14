@@ -14,12 +14,13 @@ gulp.task('build', () =>
 
 // compiles SASS into CSS
 gulp.task('sass', () => {
-    return gulp.src('./styles/sass/**/*.scss')
+    return gulp.src('./styles/sass/main.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./styles/css'));
 });
 
 // watches for changes in sass files to compile on save
-gulp.task('sass:watch', () => {
-    gulp.watch('./styles/sass/**/*.scss', ['sass']);
+gulp.task('watch', function() {
+    gulp.watch('./styles/sass/**/*.scss', gulp.series('sass'));
+    gulp.watch('./src/**/*.js', gulp.series('build'));
 });
