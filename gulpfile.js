@@ -1,11 +1,15 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
+const browserify = require('gulp-browserify');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
  
 // transpiles JS into /dist
 gulp.task('build', () =>
     gulp.src('src/index.js')
+        .pipe(browserify({
+            insertGlobals: true
+        }))
         .pipe(babel({
             presets: ['@babel/env']
         }))
