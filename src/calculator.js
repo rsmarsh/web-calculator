@@ -1,18 +1,34 @@
 class Calculator {
     constructor(config) {
-        this.addEventListeners(config.calcNode);
+       
+        this.calcNode = config.calcNode;
+
+        this.resetCalculator();
+        this.addEventListeners();
+
+    }
+
+    /**
+     * This function both resets and initlaises the calculator vars, back to their inital state
+     */
+    resetCalculator() {
+        this.preOperatorDigits = '';
+        this.postOperatorDigits = '';
+        this.operatorActive = false;
+        this.operator = '';
+
+        this.updateSumDisplay('');
+        this.updateAnswerDisplay('')
     }
 
     /**
      * This function sets up the event listeners for all the different buttons on the calc
-     * 
-     * @param {HTMLElement} calcNode - the entire calculator div belonging to this calc instance
      */
-    addEventListeners(calcNode) {
-        let btnContainer = calcNode.querySelector('.calc-buttons');
+    addEventListeners() {
+        let btnContainer = this.calcNode.querySelector('.calc-buttons');
         // catch the click when it bubbles up to the parent div
         btnContainer.addEventListener('click', (evt) => {
-            console.log(evt.target.value);
+            this.handleButtonClick(evt.target);
         })
         
     }
@@ -24,9 +40,53 @@ class Calculator {
      * @param {HTMLElement} button - the button at the source of the click event
      */
     handleButtonClick(button) {
-        console.log(button.value);
-        console.log(button.dataset);
-    }
+        const buttonType = button.dataset.btnType;
+        const buttonValue = button.value;
+
+        switch(buttonType) {
+            case 'number':
+                this.numberPressed(buttonValue);
+                break;
+            case 'operator': 
+                // TODO: add operator handler
+                break;
+            case 'action':
+                // TODO: add action handler
+                break;
+            default: 
+                break;
+
+        }
+    };
+
+    numberPressed(value) {
+        if (!this.operatorActive) {
+            this.preOperatorDigits += value;
+        } else {
+            this.postOperatorDigits += value;
+        }
+
+        this.updateSumDisplay(this.preOperatorDigits + this.operator + this.postOperatorDigits);
+    };
+
+    /**
+     * Updates the sum segment of the calculator screen with the value passed to this function
+     * @param {String} newValue - the string to display as the current sum
+     */
+    updateSumDisplay(newValue) {
+        const sumDisplay = this.calcNode.querySelector('.sum-value');
+        sumDisplay.textContent = newValue;
+    };
+
+     /**
+     * Updates the answer/result segment of the calculator screen with the value passed to this function
+     * @param {String} newValue - the string to display on the screen as the answer
+     */
+    updateAnswerDisplay(newValue) {
+        const answerDisplay = this.calcNode.querySelector('.answer-value');
+        answerDisplay.textContent = newValue;
+
+    };
 
 };
 
