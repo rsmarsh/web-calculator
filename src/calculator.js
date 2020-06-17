@@ -16,9 +16,10 @@ class Calculator {
         this.postOperatorDigits = '';
         this.operatorActive = false;
         this.operatorName = '';
+        this.inAnswerState = false; //the state after pressing equals, further presses will begin the next sum
 
         this.updateSumDisplay('');
-        this.updateAnswerDisplay('')
+        this.updateAnswerDisplay('');
     }
 
     /**
@@ -103,7 +104,8 @@ class Calculator {
                 this.resetCalculator();
                 break;
             case 'equals':
-                // TODO: equals support
+                this.calculatorLocked = true;
+                this.updateAnswerDisplay(this.evaluateSum());
                 break;
             case 'save':
                 // TODO: save support
@@ -111,6 +113,58 @@ class Calculator {
             default:
                 break;
         }
+    };
+
+    /**
+     * Attempt to run the calculation which was input by the user
+     * @returns {Number|String} This will either return a valid number, or an error message
+     */
+    evaluateSum() {
+        let answer;
+        const errorMessage = 'Invalid Entry';
+                
+        // if an operator was not selected, display the same value as the answer
+        if (!this.operatorActive) {
+            answer = Number(this.preOperatorDigits);
+            return isNaN(answer) ? answer : errorMessage;
+        }
+
+
+        // catch blank string values before they are coerced to 0's
+        if (this.preOperatorDigits === '' || this.postOperatorDigits === '') {
+            return errorMessage;
+
+        }
+
+        let firstNumber = Number(this.preOperatorDigits);
+        let secondNumber = Number(this.postOperatorDigits);
+        if (isNaN(firstNumber) || isNaN(secondNumber)) {
+            return errorMessage;
+        }
+        
+        switch(this.operatorName) {
+            case 'add':
+                answer = firstNumber + secondNumber;
+                break;
+            case 'subtract':
+                answer = firstNumber - secondNumber;
+                break;
+            case 'multiply':
+                answer = firstNumber * secondNumber;
+                break;
+            case 'divide':
+                answer = firstNumber / secondNumber;
+                break
+            default:
+                return errorMessage;
+        }
+
+        // final check for an invalid number result before continuing
+        if (isNaN(answer)) {
+            return errorMessage;
+        }
+
+        return answer;
     };
 
     /**
