@@ -61,6 +61,11 @@ class Calculator {
         }
     };
 
+    /**
+     * As each number is pressed, a string of numbers is built up until the desired sum is written
+     * 
+     * @param {String} value - the button's value as taken from the DOM element 
+     */
     numberPressed(value) {
 
         if (!this.operatorActive) {
@@ -72,6 +77,9 @@ class Calculator {
         this.updateSumDisplay();
     };
 
+    /**
+     * Convert a word-based operator into the mathmatical symbol
+     */
     getOperatorSymbol() {
         switch(this.operatorName) {
             case 'add':
@@ -151,9 +159,8 @@ class Calculator {
         // if an operator was not selected, display the same value as the answer
         if (!this.operatorActive) {
             answer = Number(this.preOperatorDigits);
-            return isNaN(answer) ? answer : errorMessage;
+            return isNaN(answer) ? errorMessage : answer;
         }
-
 
         // catch blank string values before they are coerced to 0's
         if (this.preOperatorDigits === '' || this.postOperatorDigits === '') {
@@ -161,12 +168,14 @@ class Calculator {
 
         }
 
+        // check that each side of the operator contains a valid number
         let firstNumber = Number(this.preOperatorDigits);
         let secondNumber = Number(this.postOperatorDigits);
         if (isNaN(firstNumber) || isNaN(secondNumber)) {
             return errorMessage;
         }
         
+        // convert operator string into real math operations
         switch(this.operatorName) {
             case 'add':
                 answer = firstNumber + secondNumber;
@@ -184,7 +193,7 @@ class Calculator {
                 return errorMessage;
         }
 
-        // final check for an invalid number result before continuing
+        // final sanity check for an invalid number result before continuing
         if (isNaN(answer)) {
             return errorMessage;
         }
