@@ -14,8 +14,9 @@ class Calculator {
     resetCalculator() {
         this.preOperatorDigits = '';
         this.postOperatorDigits = '';
-        this.operatorActive = false;
+        this.answerDigits = '';
         this.operatorName = '';
+        this.operatorActive = false;
         this.inAnswerState = false; //the state after pressing equals, further presses will begin the next sum
 
         this.updateSumDisplay('');
@@ -61,6 +62,7 @@ class Calculator {
     };
 
     numberPressed(value) {
+
         if (!this.operatorActive) {
             this.preOperatorDigits += value;
         } else {
@@ -85,7 +87,29 @@ class Calculator {
         }
     };
 
+    /**
+     * This function is invoked when any of the 4 operators are pressed
+     * The calculators state is updated to start entering any subsequent numbers into the second half of the sum
+     * @param {String} operator - word representation of the operator which was selected
+     */
     handleOperator(operator) {
+
+        // is the user creating a new sum from the answer of the previous one
+        if (this.inAnswerState) {
+            let retainValue = '';
+            // if the previous answer was an error, it will not retain any of the old values
+            if (!isNaN(this.answerDigits)) {
+                retainValue = String(this.answerDigits); 
+            }
+            
+            this.resetCalculator();
+
+            // the previous answer becomes the new pre-digits
+            this.preOperatorDigits = retainValue;
+            this.inAnswerState = false;
+
+        }
+
         this.operatorName = operator;
         this.operatorActive = true;
 
@@ -104,8 +128,9 @@ class Calculator {
                 this.resetCalculator();
                 break;
             case 'equals':
-                this.calculatorLocked = true;
-                this.updateAnswerDisplay(this.evaluateSum());
+                this.inAnswerState = true;
+                this.answerDigits = this.evaluateSum();
+                this.updateAnswerDisplay(this.answerDigits);
                 break;
             case 'save':
                 // TODO: save support
