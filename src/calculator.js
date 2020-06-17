@@ -15,7 +15,7 @@ class Calculator {
         this.preOperatorDigits = '';
         this.postOperatorDigits = '';
         this.operatorActive = false;
-        this.operator = '';
+        this.operatorName = '';
 
         this.updateSumDisplay('');
         this.updateAnswerDisplay('')
@@ -48,7 +48,7 @@ class Calculator {
                 this.numberPressed(buttonValue);
                 break;
             case 'operator': 
-                // TODO: add operator handler
+                this.handleOperator(buttonValue);
                 break;
             case 'action':
                 this.handleAction(buttonValue);
@@ -66,7 +66,29 @@ class Calculator {
             this.postOperatorDigits += value;
         }
 
-        this.updateSumDisplay(this.preOperatorDigits + this.operator + this.postOperatorDigits);
+        this.updateSumDisplay();
+    };
+
+    getOperatorSymbol() {
+        switch(this.operatorName) {
+            case 'add':
+                return '+'
+            case 'divide':
+                return '÷';
+            case 'multiply':
+                return 'x';
+            case 'subtract':
+                return '-';
+            default: 
+                return '';
+        }
+    };
+
+    handleOperator(operator) {
+        this.operatorName = operator;
+        this.operatorActive = true;
+
+        this.updateSumDisplay();
     };
 
     /**
@@ -92,12 +114,21 @@ class Calculator {
     };
 
     /**
-     * Updates the sum segment of the calculator screen with the value passed to this function
-     * @param {String} newValue - the string to display as the current sum
+     * Updates the sum segment of the calculator screen with the current sum or custom message
+     * @param {String} overrideValue - the string to display instead of the current sum, for errors and messages
      */
-    updateSumDisplay(newValue) {
+    updateSumDisplay(overrideValue) {
         const sumDisplay = this.calcNode.querySelector('.sum-value');
-        sumDisplay.textContent = newValue;
+        let displayValue;
+
+        // prioritise a custom message if one is provided
+        if (typeof overrideValue !== 'undefined') {
+            displayValue = overrideValue;
+        } else {
+            displayValue = this.preOperatorDigits + this.getOperatorSymbol() + this.postOperatorDigits;
+        }
+        
+        sumDisplay.textContent = displayValue;
     };
 
      /**
