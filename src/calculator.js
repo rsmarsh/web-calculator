@@ -51,7 +51,7 @@ class Calculator {
                 // TODO: add operator handler
                 break;
             case 'action':
-                // TODO: add action handler
+                this.handleAction(buttonValue);
                 break;
             default: 
                 break;
@@ -67,6 +67,28 @@ class Calculator {
         }
 
         this.updateSumDisplay(this.preOperatorDigits + this.operator + this.postOperatorDigits);
+    };
+
+    /**
+     * Once established that an action button was pressed, this function determines and initiates the action
+     * 
+     * @param {String} action - the action name as stored within the DOM "value" 
+     */
+    handleAction(action) {
+
+        switch(action) {
+            case 'clear':
+                this.resetCalculator();
+                break;
+            case 'equals':
+                // TODO: equals support
+                break;
+            case 'save':
+                // TODO: save support
+                break;
+            default:
+                break;
+        }
     };
 
     /**
