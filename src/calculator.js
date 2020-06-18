@@ -19,7 +19,7 @@ class Calculator {
         this.operatorActive = false;
         this.inAnswerState = false; //the state after pressing equals, further presses will begin the next sum
 
-        this.updateSumDisplay('');
+        this.updateSumDisplay('0');
         this.updateAnswerDisplay('');
     }
 
@@ -141,7 +141,7 @@ class Calculator {
                 this.updateAnswerDisplay(this.answerDigits);
                 break;
             case 'save':
-                // TODO: save support
+                this.savePressed();
                 break;
             default:
                 break;
@@ -228,6 +228,25 @@ class Calculator {
         answerDisplay.textContent = newValue;
 
     };
+
+    savePressed() {
+        if (!this.inAnswerState) {
+            alert('Only a completed sum and answer can be saved');
+            return;
+        }
+
+        let data = {
+            sum: `${this.preOperatorDigits} ${this.getOperatorSymbol(this.operatorName)} ${this.postOperatorDigits} = ${this.answerDigits}`
+        };
+
+        fetch('/Calculations.php', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+    }
 
 };
 
