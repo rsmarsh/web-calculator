@@ -68,6 +68,11 @@ class Calculator {
      */
     numberPressed(value) {
 
+        // until the answer is cleared, only operators are available
+        if (this.inAnswerState) {
+            return;
+        }
+
         if (!this.operatorActive) {
             this.preOperatorDigits += value;
         } else {
@@ -138,7 +143,8 @@ class Calculator {
             case 'equals':
                 this.inAnswerState = true;
                 this.answerDigits = this.evaluateSum();
-                this.updateAnswerDisplay(this.answerDigits);
+                this.updateAnswerDisplay(this.answerDigits.toLocaleString()); //toLocaleString adds commas to large numbers
+                this.updateSumDisplay();
                 break;
             case 'save':
                 this.savePressed();
@@ -154,7 +160,7 @@ class Calculator {
      */
     evaluateSum() {
         let answer;
-        const errorMessage = 'Invalid Entry';
+        const errorMessage = 'Invalid';
                 
         // if an operator was not selected, display the same value as the answer
         if (!this.operatorActive) {
@@ -213,7 +219,10 @@ class Calculator {
         if (typeof overrideValue !== 'undefined') {
             displayValue = overrideValue;
         } else {
-            displayValue = this.preOperatorDigits + this.getOperatorSymbol() + this.postOperatorDigits;
+            displayValue = `${this.preOperatorDigits} ${this.getOperatorSymbol()}  ${this.postOperatorDigits}`;
+            if (this.inAnswerState) {
+                displayValue+=' =';
+            }
         }
         
         sumDisplay.textContent = displayValue;
