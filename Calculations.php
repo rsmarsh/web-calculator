@@ -1,5 +1,10 @@
 <?php 
 
+// if a get request was made to this file, return the calculations list
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    getCalculations();
+}
+
 // post requests signify a new calculation to save to the csv file
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     saveCalculation();
@@ -22,6 +27,76 @@ function saveCalculation() {
     ));
     fclose($csvFile);
 
+}
+
+// Returns the whole list of calculations found within the csv file
+function getCalculations() {
+    $csvFile = openCSVFile(false);
+    $entriesArray = [];
+
+    
+    
+    // return each line/entry within the csv until the end of the file is reached
+    while(!feof($csvFile)) {
+        $entry = fgetcsv($csvFile);
+        $entriesArray[] = $entry;
+    }
+    
+    // flip the order so they range from newest to oldest
+    $entriesArray = array_reverse($entriesArray);
+    
+    echo("<table>");
+    echo(createTableHead());
+    echo("<tbody>");
+
+    foreach ($entriesArray as $entry) {
+        echo createRow($entry);
+    }
+
+    echo("</tbody>");
+    echo('</table>');
+
+}
+
+function createTableHead() {
+    return "
+        <thead>
+            <tr>
+                <th>
+                    Calculation
+                </th>
+                <th>
+                    IP Address
+                </th>
+                <th>
+                    Timestamp
+                </th>
+                <th>
+                    User Agent
+                </th>
+            </tr>
+        </thead>
+    ";
+}
+
+// Creates a table row for each entry in the array
+function createRow($entry) {
+    echo "
+        <tr>
+            <td>
+                ".$entry[0]."
+            </td>
+            <td>
+                ".$entry[1]."
+            </td>
+            <td>
+                ".$entry[2]."
+            </td>
+            <td>
+                ".$entry[3]."
+            </td>
+        </tr>
+    ";
 }
 
 function openCSVFile($bwriteMode) {
