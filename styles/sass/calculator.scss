@@ -1,45 +1,60 @@
 // Variables
-$calcBGColor: #333;
-$calcBtnColor: #e77676;
-$actionBtnColor: #ff4646;
-$operatorBtnColor: #f8b155;
+$calcBGColor: #29363b;
+$calcBtnColor: #f6827a;
+$actionBtnColor: #ec475c;
+$operatorBtnColor: #f7ba86;
+$calcFontColor: #fff;
 $calcBtnSize: 4rem;
-$calcFontSize: $calcBtnSize/3;
-$calcFontColor: #FFF;
+$calcSize: $calcBtnSize*4;
 $calcScreenHeight: 6rem;
+$calcFontSize: $calcBtnSize*0.35;
+$calcFontFamily: sans-serif;
 
 // Rules
 .calculator {
     background-color: $calcBGColor;
     color: $calcFontColor;
+    font-family: $calcFontFamily;
+    max-width: $calcSize;
+    
 
     .calc-screen {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         justify-content: center;
-        height: $calcScreenHeight;
 
+        height: $calcScreenHeight;
         padding: 2rem;
 
         // sum and answer displays
         p {
-            font-size: $calcFontSize;
+            font-size: $calcFontSize*1.4;
+            height: $calcFontSize*1.4;
             margin: 0;
 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
             &.sum-value {
-                color: #727272;
+                color: #667073;
             }
             &.answer-value {
-                font-size: $calcFontSize*2;
+                font-size: $calcFontSize*2.5;
+                height: $calcFontSize*2.5;
             }
+        }
+
+        .sum, .answer {
+            max-width: 100%;
         }
     }
 
     .btn-row {
         display:flex;
         justify-content: space-evenly;
-        border-top: 1px solid $calcBGColor;
+        border-top: 1px solid #6e6262;
     }
 
     .calc-buttons {
