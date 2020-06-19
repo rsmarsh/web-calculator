@@ -11,7 +11,7 @@ This project features a web-based calculator, allowing the calculation of simple
 ## Usage
 
 ### Live Demo (has no saving functionality):
-[Web Calculator Demo - Netlify](https://www.google.com)
+[Web Calculator Demo - Netlify](https://zealous-wright-d2449e.netlify.app/)
 
 
 ### Self Hosting
